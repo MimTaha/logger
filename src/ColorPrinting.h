@@ -3,12 +3,14 @@
 
 #include <cstdio>
 
-#define ESC_COLOR_TEXT "\033[38;5;"
-#define ESC_COLOR_BKG "\033[48;5;"
+#define ESC_Start "\033["
+#define ESC_SetColorText ESC_Start "38;5;"
+#define ESC_SetColorBackGround ESC_Start "48;5;"
+#define ESC_End "m"
+#define ESC_ResetColor ESC_Start "0" ESC_End
+#define ESC_SetFullColorWitInt ESC_Start ESC_SetColorText "%d" ESC_End ESC_SetColorBackGround "%d" ESC_End
 
-#define setColorful ESC_COLOR_TEXT "%dm" ESC_COLOR_BKG "%dm"
-#define resetColorful "\033[m"
-
-#define colorPrinting(message, colorText, colorBkg, ...) printf_s(setColorful message resetColorful, colorText, colorBkg, __VA_ARGS__)
+#define ESC_ColorPrinting(message, colorText, colorBackGround, ...) \
+    printf_s(ESC_SetFullColorWitInt message ESC_ResetColor, colorText, colorBackGround, __VA_ARGS__)
 
 #endif // !COLORPRINTING_H
