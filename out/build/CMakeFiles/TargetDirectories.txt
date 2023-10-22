@@ -1,7 +1,0 @@
-/home/taha/projects/MTNCore/logger/out/build/CMakeFiles/edit_cache.dir
-/home/taha/projects/MTNCore/logger/out/build/CMakeFiles/rebuild_cache.dir
-/home/taha/projects/MTNCore/logger/out/build/src/CMakeFiles/edit_cache.dir
-/home/taha/projects/MTNCore/logger/out/build/src/CMakeFiles/rebuild_cache.dir
-/home/taha/projects/MTNCore/logger/out/build/test/CMakeFiles/Test.dir
-/home/taha/projects/MTNCore/logger/out/build/test/CMakeFiles/edit_cache.dir
-/home/taha/projects/MTNCore/logger/out/build/test/CMakeFiles/rebuild_cache.dir
