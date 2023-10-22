@@ -11,6 +11,6 @@
 #define ESC_SetFullColorWitInt ESC_Start ESC_SetColorText "%d" ESC_End ESC_SetColorBackGround "%d" ESC_End
 
 #define ESC_ColorPrinting(message, colorText, colorBackGround, ...) \
-    printf_s(ESC_SetFullColorWitInt message ESC_ResetColor, colorText, colorBackGround, __VA_ARGS__)
+    printf(ESC_SetFullColorWitInt message ESC_ResetColor, colorText, colorBackGround, __VA_ARGS__)
 
 #endif // !COLORPRINTING_H
