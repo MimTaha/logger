@@ -1,8 +1,8 @@
 #include <iostream>
-#include "Test_ColorPrinting.h"
+#include "ColorPrinting_test.h"
 
 int main(){
-    Test_ColorPrinting a;
-    a.t();
+    ColorPrinting_test a;
+    a.test();
     return 0;
 }
