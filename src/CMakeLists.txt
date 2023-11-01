@@ -1,4 +1,4 @@
 project(src)
 
-add_library(src INTERFACE)
-target_include_directories(src INTERFACE .)
+add_library(src Logger.cpp)
+target_include_directories(src PUBLIC .)
