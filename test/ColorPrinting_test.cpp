@@ -1,8 +1,7 @@
 #include "ColorPrinting_test.h"
-#include <cstdio>
 
 void ColorPrinting_test::test(){
-    ESC_ColorPrinting("salam welcom\n", 12, 13);
-    ESC_ColorPrinting("salam welcom\n\n", 18, 25);
-    printf("salam");
+    ColorPrinting::print("Hello\n");
+    ColorPrinting::print("Hello\n", 30, 3);
+    ColorPrinting::print("Hello%d\n", 0, 1, 12);
 }

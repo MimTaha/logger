@@ -5,7 +5,9 @@
 
 class ColorPrinting_test{
 public:
-    void test();
+    static void test();
+
+private:
 };
 
 #endif //TEST_COLORPRINTING_H

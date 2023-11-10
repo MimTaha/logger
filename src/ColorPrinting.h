@@ -2,19 +2,20 @@
 #define COLORPRINTING_H
 
 #include <cstdio>
+#include <cstdarg>
+#include <iostream>
 
-#define ESC_Start "\033["
-#define ESC_SetColorText ESC_Start "38;5;"
-#define ESC_SetColorBackGround ESC_Start "48;5;"
-#define ESC_End "m"
-#define ESC_ResetColor ESC_Start "0" ESC_End
-#define ESC_SetFullColorWitInt ESC_Start ESC_SetColorText "%d" ESC_End ESC_SetColorBackGround "%d" ESC_End
+#define CP_Start "\033["
+#define CP_End "m"
+#define CP_SetColorText CP_Start "38;5;%d" CP_End
+#define CP_SetColorBackGround CP_Start "48;5;%d" CP_End
+#define CP_ResetColor CP_Start "0" CP_End
+#define CP_SetFullColor CP_SetColorText CP_SetColorBackGround
 
-#define ESC_ColorPrinting(message, colorText, colorBackGround)\
-    printf(ESC_SetFullColorWitInt message ESC_ResetColor, colorText, colorBackGround)
-
-class ColorPrinting{
+class ColorPrinting {
 public:
+    static void print(const char *string, int textColor = 250, int bgColor = -1, ...);
+
 private:
 };
 
