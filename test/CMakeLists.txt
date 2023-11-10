@@ -14,7 +14,3 @@ add_executable(Test ColorPrinting_test.cpp)
 
 target_link_libraries(Test src gtest_main)
 # target_include_directories(Test PRIVATE ../src)
-
-#add_executable(example test1.cpp)
-#target_link_libraries(example gtest_main)
-#add_test(NAME example_test COMMAND example)
