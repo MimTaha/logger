@@ -7,3 +7,4 @@ add_definitions(-DSOME_DEFINITION)
 
 add_subdirectory(src)
 add_subdirectory(test)
+#add_subdirectory(Google_tests)

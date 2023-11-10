@@ -1,7 +1,14 @@
-#include "ColorPrinting_test.h"
+#include <gtest/gtest.h>
+#include "ColorPrinting.h"
 
-void ColorPrinting_test::test(){
-    ColorPrinting::print("Hello\n");
-    ColorPrinting::print("Hello\n", 30, 3);
-    ColorPrinting::print("Hello%d\n", 0, 1, 12);
+TEST(ColorPrinting, justPrint){
+    ColorPrinting::print("Hello");
+}
+
+TEST(ColorPrinting, printWithColor){
+    ColorPrinting::print("Hello", 30, 3);
+}
+
+TEST(ColorPrinting, printWithColorAndArgument){
+    ColorPrinting::print("Hello%d", 0, 1, 12);
 }
