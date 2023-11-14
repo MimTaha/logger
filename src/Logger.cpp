@@ -1,5 +1,7 @@
 #include "Logger.h"
 
+std::map<std::string, int> Logger::colorOfAllTypeOfLogg;
+
 Logger::Logger() {
     colorOfAllTypeOfLogg["trace"] = 245;
     colorOfAllTypeOfLogg["debug"] = 111;
