@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include "Logger.h"
+#include "../include/Logger.h"
 
 TEST(Logger, justPrintTypesOfLogger) {
     Logger logger;

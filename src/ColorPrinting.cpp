@@ -1,4 +1,4 @@
-#include "ColorPrinting.h"
+#include "../include/ColorPrinting.h"
 
 void ColorPrinting::print(const char *string, int textColor, int bgColor, va_list args) {
     (bgColor == -1)

@@ -1,4 +1,4 @@
-#include "Logger.h"
+#include "../include/Logger.h"
 
 std::map<std::string, int> Logger::colorOfAllTypeOfLogg;
 
