@@ -3,7 +3,6 @@
 
 #include <cstdio>
 #include <cstdarg>
-#include <iostream>
 
 #define CP_Start "\033["
 #define CP_End "m"
