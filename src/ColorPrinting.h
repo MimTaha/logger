@@ -13,6 +13,7 @@
 
 class ColorPrinting {
 public:
+    static void print(const char *string, int textColor, int bgColor, va_list args);
     static void print(const char *string, int textColor = 250, int bgColor = -1, ...);
 
 private:
