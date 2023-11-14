@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.26)
 
-project(logger)
+project(logger VERSION 0.0.5)
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 add_definitions(-DSOME_DEFINITION)
