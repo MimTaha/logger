@@ -1,14 +1,31 @@
 #include <gtest/gtest.h>
-#include "ColorPrinting.h"
+#include "ColorText.h"
 
-TEST(ColorPrinting, justPrint){
-    ColorPrinting::print("Hello");
+TEST(ColorText, justGetText){
+    char *out = ColorText::getTxtColor("Hello");
+    printf("%s", out);
 }
 
-TEST(ColorPrinting, printWithColor){
-    ColorPrinting::print("Hello", 30, 3);
+TEST(ColorText, justPrint){
+    ColorText::print("Hello");
 }
 
-TEST(ColorPrinting, printWithColorAndArgument){
-    ColorPrinting::print("Hello%d", 0, 1, 12);
+TEST(ColorText, getTextWithColor){
+    char *out = ColorText::getTxtColor("Hello", 30, 3);
+    printf("%s", out);
+}
+
+TEST(ColorText, printWithColor){
+
+    ColorText::print("Hello", 30, 3);
+}
+
+TEST(ColorText, getTextWithColorAndArgument){
+    char *out = ColorText::getTxtColor("Hello%d", 0, 1, 12);
+    printf("%s", out);
+
+}
+
+TEST(ColorText, printWithColorAndArgument){
+    ColorText::print("Hello%d", 0, 1, 12);
 }
