@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include "../include/ColorPrinting.h"
+#include "ColorPrinting.h"
 
 TEST(ColorPrinting, justPrint){
     ColorPrinting::print("Hello");

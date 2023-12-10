@@ -1,6 +1,6 @@
 project(src)
 
-add_library(src Logger.cpp
+add_library(src Logging.cpp
         ColorPrinting.cpp
 )
-target_include_directories(src PUBLIC ../include/)
+target_include_directories(src PUBLIC .)
