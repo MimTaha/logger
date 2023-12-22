@@ -5,6 +5,7 @@
 #include <string>
 #include <ctime>
 #include <chrono>
+#include <map>
 
 #include "ColorText.h"
 #include "LogEntry.h"
