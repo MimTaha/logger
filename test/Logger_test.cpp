@@ -1,4 +1,5 @@
 #include <gtest/gtest.h>
+#include <cstring>
 #include "Logger.h"
 
 TEST(Logger, justPrintTypesOfLogger) {
@@ -21,7 +22,10 @@ TEST(Logger, printWithArgs) {
 //    logging.fatal("This is a fatal logg %d", 0, 19);
 }
 
-TEST(Logger, logSaveToFile){
-    Logger logging;
-    logging.saveToFile("fatal", "salam", 12);
+
+TEST(Logger, logSaveToFile) {
+    makeLogger("Logger_test");
+    LOG_TRACE("salam");
+//    Logger instance = Logger::getInstance(__FILE_NAME__);
+//    instance.log(LogEntry(LogEntry::TRACE, __LINE__), "salam");
 }

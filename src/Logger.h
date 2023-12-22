@@ -5,40 +5,50 @@
 #include <string>
 #include <ctime>
 #include <chrono>
-#include "ColorText.h"
 
-class Logger {
+#include "ColorText.h"
+#include "LogEntry.h"
+
+class Logger : private LogEntry {
 public:
     Logger();
 
-    enum LogLevel {
-        TRACE,
-        DEBUG,
-        INFO,
-        WARN,
-        ERROR,
-        FATAL
-    };
+    void log(const LogEntry &logEntry, const char *message, ...);
 
-    void log(LogLevel level, int line, const std::string &funcName, const std::string &message, va_list args);
+    void saveToFile(const char *message, va_list args);
 
-    void saveToFile(const std::string &typeOfLogg, const std::string &message, int line);
-
-    void printLog(const std::string &message, LogLevel level, int line, va_list args);
+    static Logger &getInstance(const char *logName);
 
 private:
+    Logger(const char *logName);
 
-    char * getTimeTxtStruct();
+    char *getLog(const char *message, va_list args);
 
-    char * getLevelTxtStruct(LogLevel level);
+    char *getTimeTxtStruct();
 
-    char * getLineTxtStruct(int line);
+    char *getLevelTxtStruct();
 
-    char * getMessTxtStruct(const std::string &message, va_list args);
+    char *getLineTxtStruct();
 
-    static std::string logLevelToString(Logger::LogLevel level);
+    char *getMessTxtStruct(const char *message, va_list args);
 
-    static int logLevelToColor(LogLevel level);
+    const char *logLevelToString(Logger::LogLevel level);
+
+    int logLevelToColor(LogLevel level);
+
+    static std::map<const char *, Logger> _instances;
+
+    const LogEntry *_logEntry;
+    const char *_logName;
 };
+
+#define makeLogger(logName) Logger instance = Logger::getInstance(logName)
+
+#define LOG_TRACE(...) instance.log(LogEntry(LogEntry::TRACE, __LINE__), __VA_ARGS__)
+#define LOG_DEBUG(...) instance.log(LogEntry(LogEntry::DEBUG, __LINE__), __VA_ARGS__)
+#define LOG_INFO(...) instance.log(LogEntry(LogEntry::INFO, __LINE__), __VA_ARGS__)
+#define LOG_WARN(...) instance.log(LogEntry(LogEntry::WARN, __LINE__), __VA_ARGS__)
+#define LOG_ERROR(...) instance.log(LogEntry(LogEntry::ERROR, __LINE__), __VA_ARGS__)
+#define LOG_FATAL(...) instance.log(LogEntry(LogEntry::FATAL, __LINE__), __VA_ARGS__)
 
 #endif //LOGGING_H
