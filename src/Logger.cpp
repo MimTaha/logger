@@ -1,6 +1,8 @@
+#include <cstdio>
 #include <cstring>
 #include <cstdarg>
 
+#include "ColorText.h"
 #include "Logger.h"
 
 Logger::Logger() {}
@@ -37,7 +39,11 @@ Logger &Logger::getInstance(const char *logName) {
 Logger::Logger(const char *logName) : _logName(logName) {}
 
 char *Logger::getLog(const char *message, va_list args) {
-    char *out = new char[strlen(message) + 20];
+    va_list argsCopy;
+    va_copy(argsCopy, args);
+    char *out = new char[strlen(getTimeTxtStruct()) + strlen(getLevelTxtStruct())+
+        strlen(getLineTxtStruct()) + strlen(getMessTxtStruct(message, argsCopy))];
+    va_end(argsCopy);
     sprintf(out, "%s %s ,%s ,%s\n", getTimeTxtStruct(), getLevelTxtStruct(), getLineTxtStruct(),
             getMessTxtStruct(message, args));
     return out;
@@ -47,27 +53,32 @@ char *Logger::getTimeTxtStruct() {
     time_t timeNow = time(nullptr);
     char buffer[8];
     strftime(buffer, 9, "%T", localtime(&timeNow));
-    return ColorText::getTxtColor(buffer, 38);
+    return ColorText::getTxtColor(38, -1, buffer);
 }
 
 char *Logger::getLevelTxtStruct() {
-    char *out = ColorText::getTxtColor("%-5s", logLevelToColor(_logEntry->getLevel()), -1,
+    char *out = ColorText::getTxtColor(logLevelToColor(_logEntry->getLevel()), -1, "%-5s", 
                                        logLevelToString(_logEntry->getLevel()));
     return out;
 }
 
 char *Logger::getLineTxtStruct() {
-    char *textLine = ColorText::getTxtColor("line ", 12);
-    char *amountLine = ColorText::getTxtColor("%-4d", 1, -1, _logEntry->getLine());
+    char *textLine = ColorText::getTxtColor(12, -1, "line ");
+    char *amountLine = ColorText::getTxtColor(1, -1, "%-4d", _logEntry->getLine());
     strcat(textLine, amountLine);
     return textLine;
 }
 
 char *Logger::getMessTxtStruct(const char *message, va_list args) {
-    char *textMessage = ColorText::getTxtColor("message ", 12);
-    char *amountMessage = ColorText::getTxtColor(message, 3, -1, args);
-    strcat(textMessage, amountMessage);
-    return textMessage;
+    char *textMessage = ColorText::getTxtColor(12, -1, "message ");
+    char *amountMessage = ColorText::getTxtColor(2, -1, message, args);
+    size_t totalSize = strlen(textMessage) + strlen(amountMessage) + 1;
+    char* concatenatedString = new char[totalSize];
+    strcpy(concatenatedString, textMessage);
+    strcat(concatenatedString, amountMessage);
+    delete[] textMessage;
+    delete[] amountMessage;
+    return concatenatedString;
 }
 
 const char *Logger::logLevelToString(Logger::LogLevel level) {
