@@ -20,8 +20,8 @@ public:
 
     static Logger &getInstance(const char *logName);
 
-private:
     Logger(const char *logName);
+private:
 
     char *getLog(const char *message, va_list args);
 
