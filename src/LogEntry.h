@@ -1,16 +1,8 @@
 #ifndef LOGGER_LOGENTRY_H
 #define LOGGER_LOGENTRY_H
 
-
 struct LogEntry {
-    enum LogLevel {
-        TRACE,
-        DEBUG,
-        INFO,
-        WARN,
-        ERROR,
-        FATAL
-    };
+    enum LogLevel { TRACE, DEBUG, INFO, WARN, ERROR, FATAL };
 
     LogEntry();
     LogEntry(LogLevel level, int line);
@@ -27,11 +19,10 @@ struct LogEntry {
 
     void setIsActive(bool isActive);
 
-private:
+  private:
     LogLevel _level;
     int _line;
     bool _isActive;
 };
 
-
-#endif //LOGGER_LOGENTRY_H
+#endif // LOGGER_LOGENTRY_H

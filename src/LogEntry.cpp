@@ -2,7 +2,8 @@
 
 LogEntry::LogEntry() {}
 
-LogEntry::LogEntry(LogEntry::LogLevel level, int line) : _level(level), _line(line) {}
+LogEntry::LogEntry(LogEntry::LogLevel level, int line)
+    : _level(level), _line(line) {}
 
 LogEntry::LogLevel LogEntry::getLevel() const {
     return _level;

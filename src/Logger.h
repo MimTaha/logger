@@ -1,17 +1,17 @@
 #ifndef LOGGING_H
 #define LOGGING_H
 
-#include <fstream>
-#include <string>
-#include <ctime>
 #include <chrono>
+#include <ctime>
+#include <fstream>
 #include <map>
+#include <string>
 
 #include "ColorText.h"
 #include "LogEntry.h"
 
 class Logger : private LogEntry {
-public:
+  public:
     Logger();
 
     void log(const LogEntry &logEntry, const char *message, ...);
@@ -20,8 +20,8 @@ public:
 
     static Logger &getInstance(const char *logName);
 
+  private:
     Logger(const char *logName);
-private:
 
     char *getLog(const char *message, va_list args);
 
@@ -45,11 +45,17 @@ private:
 
 #define makeLogger(logName) Logger instance = Logger::getInstance(logName)
 
-#define LOG_TRACE(...) instance.log(LogEntry(LogEntry::TRACE, __LINE__), __VA_ARGS__)
-#define LOG_DEBUG(...) instance.log(LogEntry(LogEntry::DEBUG, __LINE__), __VA_ARGS__)
-#define LOG_INFO(...) instance.log(LogEntry(LogEntry::INFO, __LINE__), __VA_ARGS__)
-#define LOG_WARN(...) instance.log(LogEntry(LogEntry::WARN, __LINE__), __VA_ARGS__)
-#define LOG_ERROR(...) instance.log(LogEntry(LogEntry::ERROR, __LINE__), __VA_ARGS__)
-#define LOG_FATAL(...) instance.log(LogEntry(LogEntry::FATAL, __LINE__), __VA_ARGS__)
+#define LOG_TRACE(...)                                                         \
+    instance.log(LogEntry(LogEntry::TRACE, __LINE__), __VA_ARGS__)
+#define LOG_DEBUG(...)                                                         \
+    instance.log(LogEntry(LogEntry::DEBUG, __LINE__), __VA_ARGS__)
+#define LOG_INFO(...)                                                          \
+    instance.log(LogEntry(LogEntry::INFO, __LINE__), __VA_ARGS__)
+#define LOG_WARN(...)                                                          \
+    instance.log(LogEntry(LogEntry::WARN, __LINE__), __VA_ARGS__)
+#define LOG_ERROR(...)                                                         \
+    instance.log(LogEntry(LogEntry::ERROR, __LINE__), __VA_ARGS__)
+#define LOG_FATAL(...)                                                         \
+    instance.log(LogEntry(LogEntry::FATAL, __LINE__), __VA_ARGS__)
 
-#endif //LOGGING_H
+#endif // LOGGING_H

@@ -1,6 +1,6 @@
+#include <cstdarg>
 #include <cstdio>
 #include <cstring>
-#include <cstdarg>
 
 #include "ColorText.h"
 #include "Logger.h"
@@ -22,18 +22,17 @@ void Logger::saveToFile(const char *message, va_list args) {
     if (file == NULL)
         perror("Error opening file");
 
-    printf("%s", getLog(message, args));
+    fprintf(file, "%s", getLog(message, args));
     fclose(file);
 }
 
 Logger &Logger::getInstance(const char *logName) {
     auto it = _instances.find(logName);
     if (it != _instances.end()) {
-        return it->second;
-    } else {
         _instances[logName] = Logger(logName);
         return _instances[logName];
-    }
+    } else
+        return it->second;
 }
 
 Logger::Logger(const char *logName) : _logName(logName) {}
@@ -41,11 +40,13 @@ Logger::Logger(const char *logName) : _logName(logName) {}
 char *Logger::getLog(const char *message, va_list args) {
     va_list argsCopy;
     va_copy(argsCopy, args);
-    char *out = new char[strlen(getTimeTxtStruct()) + strlen(getLevelTxtStruct())+
-        strlen(getLineTxtStruct()) + strlen(getMessTxtStruct(message, argsCopy))];
+    char *out =
+        new char[strlen(getTimeTxtStruct()) + strlen(getLevelTxtStruct()) +
+                 strlen(getLineTxtStruct()) +
+                 strlen(getMessTxtStruct(message, argsCopy))];
     va_end(argsCopy);
-    sprintf(out, "%s %s ,%s ,%s\n", getTimeTxtStruct(), getLevelTxtStruct(), getLineTxtStruct(),
-            getMessTxtStruct(message, args));
+    sprintf(out, "%s %s ,%s ,%s\n", getTimeTxtStruct(), getLevelTxtStruct(),
+            getLineTxtStruct(), getMessTxtStruct(message, args));
     return out;
 }
 
@@ -57,14 +58,16 @@ char *Logger::getTimeTxtStruct() {
 }
 
 char *Logger::getLevelTxtStruct() {
-    char *out = ColorText::getTxtColor(logLevelToColor(_logEntry->getLevel()), -1, "%-5s", 
-                                       logLevelToString(_logEntry->getLevel()));
+    char *out =
+        ColorText::getTxtColor(logLevelToColor(_logEntry->getLevel()), -1,
+                               "%-5s", logLevelToString(_logEntry->getLevel()));
     return out;
 }
 
 char *Logger::getLineTxtStruct() {
     char *textLine = ColorText::getTxtColor(12, -1, "line ");
-    char *amountLine = ColorText::getTxtColor(1, -1, "%-4d", _logEntry->getLine());
+    char *amountLine =
+        ColorText::getTxtColor(1, -1, "%-4d", _logEntry->getLine());
     strcat(textLine, amountLine);
     return textLine;
 }
@@ -73,7 +76,7 @@ char *Logger::getMessTxtStruct(const char *message, va_list args) {
     char *textMessage = ColorText::getTxtColor(12, -1, "message ");
     char *amountMessage = ColorText::getTxtColor(2, -1, message, args);
     size_t totalSize = strlen(textMessage) + strlen(amountMessage) + 1;
-    char* concatenatedString = new char[totalSize];
+    char *concatenatedString = new char[totalSize];
     strcpy(concatenatedString, textMessage);
     strcat(concatenatedString, amountMessage);
     delete[] textMessage;
@@ -83,39 +86,39 @@ char *Logger::getMessTxtStruct(const char *message, va_list args) {
 
 const char *Logger::logLevelToString(Logger::LogLevel level) {
     switch (level) {
-        case TRACE:
-            return "TRACE";
-        case DEBUG:
-            return "DEBUG";
-        case INFO:
-            return "INFO";
-        case WARN:
-            return "WARN";
-        case ERROR:
-            return "ERROR";
-        case FATAL:
-            return "FATAL";
-        default:
-            return "UNKNOWN";
+    case TRACE:
+        return "TRACE";
+    case DEBUG:
+        return "DEBUG";
+    case INFO:
+        return "INFO";
+    case WARN:
+        return "WARN";
+    case ERROR:
+        return "ERROR";
+    case FATAL:
+        return "FATAL";
+    default:
+        return "UNKNOWN";
     }
 }
 
 int Logger::logLevelToColor(LogLevel level) {
     switch (level) {
-        case TRACE:
-            return 245;
-        case DEBUG:
-            return 111;
-        case INFO:
-            return 114;
-        case WARN:
-            return 223;
-        case ERROR:
-            return 214;
-        case FATAL:
-            return 196;
-        default:
-            return -1;
+    case TRACE:
+        return 245;
+    case DEBUG:
+        return 111;
+    case INFO:
+        return 114;
+    case WARN:
+        return 223;
+    case ERROR:
+        return 214;
+    case FATAL:
+        return 196;
+    default:
+        return -1;
     }
 }
 
