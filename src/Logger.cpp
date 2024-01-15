@@ -3,12 +3,17 @@
 #include <cstring>
 
 #include "ColorText.h"
+#include "LogEntry.h"
 #include "Logger.h"
 
 Logger::Logger() {}
 
+Logger::Logger(const char *logName) {
+    *this = getInstance(logName);
+}
+
 void Logger::log(const LogEntry &logEntry, const char *message, ...) {
-    if (logEntry.isActive()) {
+    if (_lowestLevel < logEntry.getLevel()) {
         _logEntry = &logEntry;
         va_list args;
         va_start(args, message);
@@ -24,6 +29,10 @@ void Logger::saveToFile(const char *message, va_list args) {
 
     fprintf(file, "%s", getLog(message, args));
     fclose(file);
+}
+
+void Logger::setLowestLevel(LogEntry::LogLevel level) {
+    _lowestLevel = level;
 }
 
 Logger &Logger::getInstance(const char *logName) {

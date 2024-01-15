@@ -20,11 +20,3 @@ int LogEntry::getLine() const {
 void LogEntry::setLine(int line) {
     _line = line;
 }
-
-bool LogEntry::isActive() const {
-    return _isActive;
-}
-
-void LogEntry::setIsActive(bool isActive) {
-    _isActive = isActive;
-}

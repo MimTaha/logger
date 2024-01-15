@@ -14,14 +14,16 @@ class Logger : private LogEntry {
   public:
     Logger();
 
+    Logger(const char *logName);
+
     void log(const LogEntry &logEntry, const char *message, ...);
 
     void saveToFile(const char *message, va_list args);
 
-    static Logger &getInstance(const char *logName);
+    void setLowestLevel(LogEntry::LogLevel level);
 
   private:
-    Logger(const char *logName);
+    static Logger &getInstance(const char *logName);
 
     char *getLog(const char *message, va_list args);
 
@@ -40,22 +42,16 @@ class Logger : private LogEntry {
     static std::map<const char *, Logger> _instances;
 
     const LogEntry *_logEntry;
-    const char *_logName;
+    LogEntry::LogLevel _lowestLevel;
 };
 
 #define makeLogger(logName) Logger instance = Logger::getInstance(logName)
 
-#define LOG_TRACE(...)                                                         \
-    instance.log(LogEntry(LogEntry::TRACE, __LINE__), __VA_ARGS__)
-#define LOG_DEBUG(...)                                                         \
-    instance.log(LogEntry(LogEntry::DEBUG, __LINE__), __VA_ARGS__)
-#define LOG_INFO(...)                                                          \
-    instance.log(LogEntry(LogEntry::INFO, __LINE__), __VA_ARGS__)
-#define LOG_WARN(...)                                                          \
-    instance.log(LogEntry(LogEntry::WARN, __LINE__), __VA_ARGS__)
-#define LOG_ERROR(...)                                                         \
-    instance.log(LogEntry(LogEntry::ERROR, __LINE__), __VA_ARGS__)
-#define LOG_FATAL(...)                                                         \
-    instance.log(LogEntry(LogEntry::FATAL, __LINE__), __VA_ARGS__)
+#define Trace LogEntry(LogEntry::TRACE, __LINE__)
+#define Debug LogEntry(LogEntry::DEBUG, __LINE__)
+#define Info LogEntry(LogEntry::INFO, __LINE__)
+#define Warn LogEntry(LogEntry::WARN, __LINE__)
+#define Error LogEntry(LogEntry::ERROR, __LINE__)
+#define Fatal LogEntry(LogEntry::FATAL, __LINE__)
 
 #endif // LOGGING_H
