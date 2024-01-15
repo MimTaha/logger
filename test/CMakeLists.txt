@@ -10,10 +10,10 @@ FetchContent_Declare(
 set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(googletest)
 
-add_executable(Test
+add_executable(Test 
     ColorPrinting_test.cpp
     Logger_test.cpp
     )
 
 target_link_libraries(Test src gtest_main)
-# target_include_directories(Test PRIVATE ../src)
+target_include_directories(Test PRIVATE ../src)

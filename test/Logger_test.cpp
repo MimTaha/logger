@@ -1,31 +1,45 @@
-#include <gtest/gtest.h>
-#include <cstring>
+#include "LogEntry.h"
 #include "Logger.h"
+#include <cstring>
+#include <gtest/gtest.h>
 
 TEST(Logger, justPrintTypesOfLogger) {
     Logger logging;
-//    logging.trace("This is a trace logg", 1000);
-//    logging.debug("This is a debug logg", 0);
-//    logging.info("This is a info logg", 1);
-//    logging.warn("This is a warn logg", 10);
-//    logging.error("This is a error logg", 100);
-//    logging.fatal("This is a fatal logg", 0);
+    logging.log(LogEntry(LogEntry::TRACE, __LINE__), "Hello");
+    logging.log(LogEntry(LogEntry::DEBUG, __LINE__), "Hello");
+    logging.log(LogEntry(LogEntry::INFO, __LINE__), "Hello");
+    logging.log(LogEntry(LogEntry::WARN, __LINE__), "Hello");
+    logging.log(LogEntry(LogEntry::ERROR, __LINE__), "Hello");
+    logging.log(LogEntry(LogEntry::FATAL, __LINE__), "Hello");
 }
 
 TEST(Logger, printWithArgs) {
     Logger logging;
-//    logging.trace("This is a trace logg %d", 1000, 12);
-//    logging.debug("This is a debug logg %f", 0, 13);
-//    logging.info("This is a info logg %s", 1, "1");
-//    logging.warn("This is a warn logg %d", 10, 3);
-//    logging.error("This is a error logg %d", 100, 1);
-//    logging.fatal("This is a fatal logg %d", 0, 19);
+    logging.log(LogEntry(LogEntry::TRACE, __LINE__), "Hello %d", 12);
+    logging.log(LogEntry(LogEntry::DEBUG, __LINE__), "Hello %d", 12);
+    logging.log(LogEntry(LogEntry::INFO, __LINE__), "Hello %d", 12);
+    logging.log(LogEntry(LogEntry::WARN, __LINE__), "Hello %d", 12);
+    logging.log(LogEntry(LogEntry::ERROR, __LINE__), "Hello %d", 12);
+    logging.log(LogEntry(LogEntry::FATAL, __LINE__), "Hello %d", 12);
 }
 
+TEST(Logger, printWithMacro) {
+    Logger logging("logger_test");
+    logging.log(
+        Info,
+        "sadfsaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaasdfsdfsdfsdf"
+        "sfd %d",
+        14);
+    /* log_debug("salam %d", 11); */
+    /* log_info("salam %d", 12); */
+    /* log_warn("salam %d", 13); */
+    /* log_error("salam %d", 14); */
+    /* log_fatal("salam %d", 15); */
 
-TEST(Logger, logSaveToFile) {
-    makeLogger("Logger_test");
-    LOG_TRACE("salam");
-//    Logger instance = Logger::getInstance(__FILE_NAME__);
-//    instance.log(LogEntry(LogEntry::TRACE, __LINE__), "salam");
+    /* log_trace("salam %d", 10); */
+    /* log_debug("salam %d", 11); */
+    /* log_info("salam %d", 12); */
+    /* log_warn("salam %d", 13); */
+    /* LOG_ERROR("salam %d", 14); */
+    /* LOG_FATAL("salam %d", 15); */
 }
