@@ -2,6 +2,7 @@
 #define LOGGER_LOGENTRY_H
 
 struct LogEntry {
+  public:
     enum LogLevel { TRACE, DEBUG, INFO, WARN, ERROR, FATAL };
 
     LogEntry();

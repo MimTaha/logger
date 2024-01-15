@@ -35,8 +35,6 @@ Logger &Logger::getInstance(const char *logName) {
         return it->second;
 }
 
-Logger::Logger(const char *logName) : _logName(logName) {}
-
 char *Logger::getLog(const char *message, va_list args) {
     va_list argsCopy;
     va_copy(argsCopy, args);
